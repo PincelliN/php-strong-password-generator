@@ -13,7 +13,7 @@ $repeat = ($repeat === 'true');
 
 var_dump($repeat); 
 if($number_user && $number_user>8 && $number_user<32 ){
-function createPassword($number_user){
+function createPassword($number_user,){
     // Array con tutte le lettere maiuscole
 $maiuscole = range('A', 'Z');
 
@@ -41,18 +41,12 @@ while(strlen($new_password)<= $number_user){
 
 $rand=rand(0,count($tutti_i_caratteri)-1);
 
-$element=$tutti_i_caratteri[$rand];
-
 if($repeat){
-
 if(!in_array($element,$new_password))
-
+$element=$tutti_i_caratteri[$rand];
 $new_password .= $element;
 }else{
-$new_password .= $element;
-
-
-
+$new_password .= $tutti_i_caratteri[$rand];
 }
 
 }return $new_password;
