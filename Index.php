@@ -40,13 +40,13 @@ $new_password='';
 while(strlen($new_password)<= $number_user){
 
 $rand=rand(0,count($tutti_i_caratteri)-1);
-
+$element=$tutti_i_caratteri[$rand];
 if($repeat){
 if(!in_array($element,$new_password))
-$element=$tutti_i_caratteri[$rand];
+
 $new_password .= $element;
 }else{
-$new_password .= $tutti_i_caratteri[$rand];
+$new_password .= $element;
 }
 
 }return $new_password;
