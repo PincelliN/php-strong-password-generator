@@ -5,8 +5,13 @@ $repeat=isset($_GET['repeat'])?$_GET['repeat']:null;
 $numb=isset($_GET['numb'])?$_GET['numb']:null;
 $car=isset($_GET['car'])?$_GET['car']:null;
 $simb=isset($_GET['simb'])?$_GET['simb']:null;
+// Definisco l'array per evitare l'alert
 $generated_password=null;
 
+//trasformo la variabile $repeat in un valore booleano perche come value hanno una stringa ugale a 'true' o 'false'
+$repeat = ($repeat === 'true'); 
+
+var_dump($repeat); 
 if($number_user && $number_user>8 && $number_user<32 ){
 function createPassword($number_user){
     // Array con tutte le lettere maiuscole
@@ -26,13 +31,29 @@ $simboli = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
 
 $tutti_i_caratteri=array_merge($tutte_le_lettere,$numeri,$simboli );
 
-$new_password='';
-$i=0;
-while($i < $number_user){
-$rand=rand(0,count($tutti_i_caratteri));
 
-$new_password .= $tutti_i_caratteri[$rand];
-$i++;
+
+$new_password='';
+
+
+
+while(strlen($new_password)<= $number_user){
+
+$rand=rand(0,count($tutti_i_caratteri)-1);
+
+$element=$tutti_i_caratteri[$rand];
+
+if($repeat){
+
+if(!in_array($element,$new_password))
+
+$new_password .= $element;
+}else{
+$new_password .= $element;
+
+
+
+}
 
 }return $new_password;
 
@@ -115,16 +136,14 @@ var_dump($generated_password);
                         </div>
                         <div class="col-6 ">
                             <div class='gy-3'>
-                                <input class="form-check-input" type="checkbox" value="true" id="repeat-true">
-                                <label class="form-check-label" for="repeat-true" name='repeat'>
-                                    Si
-                                </label>
+                                <input class="form-check-input" type="radio" name="repeat" value="true"
+                                    id="repeat-true">
+                                <label class="form-check-label" for="repeat-true">NO</label>
                             </div>
                             <div class='gy-3'>
-                                <input class="form-check-input" type="checkbox" value="false" id="repeat-false">
-                                <label class="form-check-label" for="repeat-false" name='repeat'>
-                                    No
-                                </label>
+                                <input class="form-check-input" type="radio" name="repeat" value="false"
+                                    id="repeat-false">
+                                <label class="form-check-label" for="repeat-false">Si</label>
                             </div>
 
                             <div class='gy-3'>
