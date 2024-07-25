@@ -1,3 +1,61 @@
+<?php
+
+$number_user = isset($_GET['number_user']) ? $_GET['number_user'] : null;
+$repeat=isset($_GET['repeat'])?$_GET['repeat']:null;
+$numb=isset($_GET['numb'])?$_GET['numb']:null;
+$car=isset($_GET['car'])?$_GET['car']:null;
+$simb=isset($_GET['simb'])?$_GET['simb']:null;
+$generated_password=null;
+
+if($number_user && $number_user>8 && $number_user<32 ){
+function createPassword($number_user){
+    // Array con tutte le lettere maiuscole
+$maiuscole = range('A', 'Z');
+
+// Array con tutte le lettere minuscole
+$minuscole = range('a', 'z');
+
+// Array combinato con tutte le lettere
+$tutte_le_lettere = array_merge($maiuscole, $minuscole);
+
+// Array con numeri da 0 9
+$numeri = range(0, 9);
+
+// Array con tutti i simboli 
+$simboli = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
+
+$tutti_i_caratteri=array_merge($tutte_le_lettere,$numeri,$simboli );
+
+$new_password='';
+$i=0;
+while($i < $number_user){
+$rand=rand(0,count($tutti_i_caratteri));
+
+$new_password .= $tutti_i_caratteri[$rand];
+$i++;
+
+}return $new_password;
+
+}
+$generated_password = createPassword($number_user);
+var_dump($generated_password);
+
+}
+
+
+
+
+
+
+
+
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,16 +98,17 @@
                     Genera una password sicura
                 </h2>
             </div>
-            <div class="col-8 mx-auto m-5 border bg bg-info"> Genera una password di lunghezza compressa fra 8 e 32
+            <div class="col-8 mx-auto m-5 border bg bg-info">
+                <?php echo $generated_password != null?$generated_password:'Genera una password di lunghezza compressa fra 8 e 32' ?>
             </div>
             <div class="col-8 mx-auto">
-                <form action="">
+                <form action="index.php" method='GET'>
                     <div class="row">
                         <div class="col-6 my-3">
                             <label for="number-user" class="form-label">Scegli un numero</label>
                         </div>
                         <div class="col-6 my-3">
-                            <input type="number" class="form-control" id="number-user" name='number-user'>
+                            <input type="number" class="form-control" id="number-user" name='number_user'>
                         </div>
                         <div class="col-6">
                             <label class="form-label">Consenti ripetivioni di uno o più caratteri </label>
@@ -86,11 +145,12 @@
                                     Simboli
                                 </label>
                             </div>
-
                         </div>
-
-
-
+                        <div class="col-12 my-3">
+                            <button type='submit' class='btn btn-primary'>Invia</button>
+                            <button type='reset' class='btn btn-secondary'>Annulla</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
