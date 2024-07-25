@@ -14,42 +14,45 @@ $repeat = ($repeat === 'true');
 var_dump($repeat); 
 if($number_user && $number_user>8 && $number_user<32 ){
 function createPassword($number_user,){
-    // Array con tutte le lettere maiuscole
-$maiuscole = range('A', 'Z');
+        // Array con tutte le lettere maiuscole
+    $maiuscole = range('A', 'Z');
 
-// Array con tutte le lettere minuscole
-$minuscole = range('a', 'z');
+    // Array con tutte le lettere minuscole
+    $minuscole = range('a', 'z');
 
-// Array combinato con tutte le lettere
-$tutte_le_lettere = array_merge($maiuscole, $minuscole);
+    // Array combinato con tutte le lettere
+    $tutte_le_lettere = array_merge($maiuscole, $minuscole);
 
-// Array con numeri da 0 9
-$numeri = range(0, 9);
+    // Array con numeri da 0 9
+    $numeri = range(0, 9);
 
-// Array con tutti i simboli 
-$simboli = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
+    // Array con tutti i simboli 
+    $simboli = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
 
-$tutti_i_caratteri=array_merge($tutte_le_lettere,$numeri,$simboli );
-
-
-
-$new_password='';
+    $tutti_i_caratteri=array_merge($tutte_le_lettere,$numeri,$simboli );
 
 
 
-while(strlen($new_password)<= $number_user){
+    $new_password='';
 
-$rand=rand(0,count($tutti_i_caratteri)-1);
-$element=$tutti_i_caratteri[$rand];
-if($repeat){
-if(!in_array($element,$new_password))
 
-$new_password .= $element;
-}else{
-$new_password .= $element;
-}
 
-}return $new_password;
+        while(strlen($new_password)<= $number_user){
+                    $rand=rand(0,count($tutti_i_caratteri)-1);
+                    $element=$tutti_i_caratteri[$rand];
+                        if($repeat){
+                        if(!in_array($element,$new_password))
+
+                        $new_password .= $element;
+
+                        }
+                        else
+                        {
+                        $new_password .= $element;
+                        }
+
+                        }
+                        return $new_password;
 
 }
 $generated_password = createPassword($number_user);
