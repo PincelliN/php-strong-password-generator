@@ -31,17 +31,68 @@
 
 
     <div class='container'>
-        <div class='row row-cols-1'>
-            <div class="col-12 text center">
-                <h1 class='mx-auto'>
+        <div class='row row-cols-1 '>
+            <div class="col-8 text-center mx-auto">
+                <h1 class='mx-auto '>
                     Strong Password Generator
                 </h1>
                 <h2 class='mx-auto'>
                     Genera una password sicura
                 </h2>
             </div>
-            <div class="col-8 mx-auto"> Genera una password di lunghezza compressa fra 8 e 32</div>
-            <div class="col-8"></div>
+            <div class="col-8 mx-auto m-5 border bg bg-info"> Genera una password di lunghezza compressa fra 8 e 32
+            </div>
+            <div class="col-8 mx-auto">
+                <form action="">
+                    <div class="row">
+                        <div class="col-6 my-3">
+                            <label for="number-user" class="form-label">Scegli un numero</label>
+                        </div>
+                        <div class="col-6 my-3">
+                            <input type="number" class="form-control" id="number-user" name='number-user'>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Consenti ripetivioni di uno o più caratteri </label>
+                        </div>
+                        <div class="col-6 ">
+                            <div class='gy-3'>
+                                <input class="form-check-input" type="checkbox" value="true" id="repeat-true">
+                                <label class="form-check-label" for="repeat-true" name='repeat'>
+                                    Si
+                                </label>
+                            </div>
+                            <div class='gy-3'>
+                                <input class="form-check-input" type="checkbox" value="false" id="repeat-false">
+                                <label class="form-check-label" for="repeat-false" name='repeat'>
+                                    No
+                                </label>
+                            </div>
+
+                            <div class='gy-3'>
+                                <input class="form-check-input" type="checkbox" id="numb-array">
+                                <label class="form-check-label" for="numb-array" name='numb'>
+                                    Numeri
+                                </label>
+                            </div>
+                            <div class='gy-3'>
+                                <input class="form-check-input" type="checkbox" id="car-array">
+                                <label class="form-check-label" for="car-array" name='car'>
+                                    Lettere
+                                </label>
+                            </div>
+                            <div class='gy-3'>
+                                <input class="form-check-input" type="checkbox" id="simb-array">
+                                <label class="form-check-label" for="simb-array" name='simb'>
+                                    Simboli
+                                </label>
+                            </div>
+
+                        </div>
+
+
+
+                </form>
+            </div>
         </div>
     </div>
 
