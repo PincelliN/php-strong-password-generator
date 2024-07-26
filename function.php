@@ -22,7 +22,7 @@
         // Array con numeri da 0 9
         $numeri = range(0, 9);
 
-        // Array con tutti i simboli
+        // Converte una Stringa in Array con tutti i simboli
         $simboli = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
 
         if ($numb) {
@@ -40,7 +40,7 @@
         if ($number_user > count($tutti_i_caratteri) - 1 && $repeat === true) {
             $number_user = count($tutti_i_caratteri) - 1;
         }
-
+         var_dump($tutti_i_caratteri);
         $new_password = '';
 
         while (strlen($new_password) < $number_user) {

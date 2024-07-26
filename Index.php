@@ -12,7 +12,7 @@ $generated_password = null;
 //trasformo la variabile $repeat in un valore booleano perche come value hanno una stringa ugale a 'true' o 'false'
 
 if ($number_user && $number_user > 8 && $number_user < 32) {
-   include 'function.php';
+   include_once 'function.php';
  $generated_password = createPassword($number_user, $numb, $car, $simb);
     var_dump($generated_password);
 }
