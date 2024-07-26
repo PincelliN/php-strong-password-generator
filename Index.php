@@ -1,71 +1,80 @@
 <?php
 
 $number_user = isset($_GET['number_user']) ? $_GET['number_user'] : null;
-$repeat=isset($_GET['repeat'])?$_GET['repeat']:null;
-$numb=isset($_GET['numb'])?$_GET['numb']:null;
-$car=isset($_GET['car'])?$_GET['car']:null;
-$simb=isset($_GET['simb'])?$_GET['simb']:null;
+//trasformo la variabile $repeat in un valore booleano perche come value hanno una stringa ugale a 'true' o 'false'
+$repeat = isset($_GET['repeat']) ? $_GET['repeat'] === 'true' : false;
+$numb = isset($_GET['numb']);
+$car = isset($_GET['car']);
+$simb = isset($_GET['simb']);
 // Definisco l'array per evitare l'alert
-$generated_password=null;
+$generated_password = null;
 
 //trasformo la variabile $repeat in un valore booleano perche come value hanno una stringa ugale a 'true' o 'false'
-$repeat = ($repeat === 'true'); 
 
-var_dump($repeat); 
-if($number_user && $number_user>8 && $number_user<32 ){
-function createPassword($number_user,){
+if ($number_user && $number_user > 8 && $number_user < 32) {
+    function createPassword($number_user, $numb, $car, $simb)
+    {
+        global $repeat;
+        var_dump($repeat);
+        var_dump($car);
+        var_dump($numb);
+        var_dump($simb);
+
+        
+        $tutti_i_caratteri = [];
         // Array con tutte le lettere maiuscole
-    $maiuscole = range('A', 'Z');
+        $maiuscole = range('A', 'Z');
 
-    // Array con tutte le lettere minuscole
-    $minuscole = range('a', 'z');
+        // Array con tutte le lettere minuscole
+        $minuscole = range('a', 'z');
 
-    // Array combinato con tutte le lettere
-    $tutte_le_lettere = array_merge($maiuscole, $minuscole);
+        // Array combinato con tutte le lettere
+        $tutte_le_lettere = array_merge($maiuscole, $minuscole);
 
-    // Array con numeri da 0 9
-    $numeri = range(0, 9);
+        // Array con numeri da 0 9
+        $numeri = range(0, 9);
 
-    // Array con tutti i simboli 
-    $simboli = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
+        // Array con tutti i simboli
+        $simboli = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
 
-    $tutti_i_caratteri=array_merge($tutte_le_lettere,$numeri,$simboli );
+        if ($numb) {
+            $tutti_i_caratteri = array_merge($tutti_i_caratteri, $numeri);
+        }
+        if ($car) {
+            $tutti_i_caratteri = array_merge($tutti_i_caratteri, $tutte_le_lettere);
+        }
+        if ($simb) {
+            $tutti_i_caratteri = array_merge($tutti_i_caratteri, $simboli);
+        }
+        if (!$numb && !$car && !$simb) {
+            $tutti_i_caratteri = array_merge($tutte_le_lettere, $numeri, $simboli);
+        }
+        if ($number_user > count($tutti_i_caratteri) - 1 && $repeat === true) {
+            $number_user = count($tutti_i_caratteri) - 1;
+        }
 
+        $new_password = '';
 
+        while (strlen($new_password) < $number_user) {
+            $rand = rand(0, count($tutti_i_caratteri) - 1);
+            $element = $tutti_i_caratteri[$rand];
+            if ($repeat === true) {
+                if (strpos($new_password,$element) === false) {
+                    $new_password .= $element;
+                }
 
-    $new_password='';
+            } else {
+                $new_password .= $element;
+            }
 
+        }
+        return $new_password;
 
-
-        while(strlen($new_password)<= $number_user){
-                    $rand=rand(0,count($tutti_i_caratteri)-1);
-                    $element=$tutti_i_caratteri[$rand];
-                        if($repeat){
-                        if(!in_array($element,$new_password))
-
-                        $new_password .= $element;
-
-                        }
-                        else
-                        {
-                        $new_password .= $element;
-                        }
-
-                        }
-                        return $new_password;
+    }
+    $generated_password = createPassword($number_user, $numb, $car, $simb);
+    var_dump($generated_password);
 
 }
-$generated_password = createPassword($number_user);
-var_dump($generated_password);
-
-}
-
-
-
-
-
-
-
 
 ?>
 
@@ -100,7 +109,7 @@ var_dump($generated_password);
         -->
     <!--(Milstone 3)
         1. se il valore del input relativo alla singola stringa è true bisognerà modificare l array da quale estreiamo gli elementi.Quindi se solo una varibile legata al array è true allora useremo solo quella array se invece le variabili vere sono 2 faremo una somma di queste ultime.
-        2. nel caso una varibile fosse true e non ripetibile dovremmo cambiare il numero massimo di carratteri della password da generare.  
+        2. nel caso una varibile fosse true e non ripetibile dovremmo cambiare il numero massimo di carratteri della password da generare.
          -->
 
 
@@ -117,7 +126,7 @@ var_dump($generated_password);
                 </h2>
             </div>
             <div class="col-8 mx-auto m-5 border bg bg-info">
-                <?php echo $generated_password != null?$generated_password:'Genera una password di lunghezza compressa fra 8 e 32' ?>
+                <?php echo $generated_password != null ? $generated_password : 'Genera una password di lunghezza compressa fra 8 e 32' ?>
             </div>
             <div class="col-8 mx-auto">
                 <form action="index.php" method='GET'>
@@ -129,7 +138,7 @@ var_dump($generated_password);
                             <input type="number" class="form-control" id="number-user" name='number_user'>
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Consenti ripetivioni di uno o più caratteri </label>
+                            <label class="form-label">Consenti la ripetizione di uno o più caratteri </label>
                         </div>
                         <div class="col-6 ">
                             <div class='gy-3'>
@@ -144,20 +153,20 @@ var_dump($generated_password);
                             </div>
 
                             <div class='gy-3'>
-                                <input class="form-check-input" type="checkbox" id="numb-array">
-                                <label class="form-check-label" for="numb-array" name='numb'>
+                                <input class="form-check-input" type="checkbox" name='numb' id="numb-array">
+                                <label class="form-check-label" for="numb-array">
                                     Numeri
                                 </label>
                             </div>
                             <div class='gy-3'>
-                                <input class="form-check-input" type="checkbox" id="car-array">
-                                <label class="form-check-label" for="car-array" name='car'>
+                                <input class="form-check-input" type="checkbox" name='car' id="car-array">
+                                <label class="form-check-label" for="car-array">
                                     Lettere
                                 </label>
                             </div>
                             <div class='gy-3'>
-                                <input class="form-check-input" type="checkbox" id="simb-array">
-                                <label class="form-check-label" for="simb-array" name='simb'>
+                                <input class="form-check-input" type="checkbox" name='simb' id="simb-array">
+                                <label class="form-check-label" for="simb-array">
                                     Simboli
                                 </label>
                             </div>
